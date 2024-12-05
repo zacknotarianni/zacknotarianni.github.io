@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wildfire Risk Mitigation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #2b2b2b;
+            color: #f7f5f0;
+            margin: 0;
+            padding: 0;
+        }
+        .tabs {
+            display: flex;
+            justify-content: center;
+            background-color: #1f1f1f;
+            padding: 20px;
+        }
+        .tab-button {
+            background-color: #1f1f1f;
+            border: none;
+            color: #f7f5f0;
+            padding: 15px 25px;
+            cursor: pointer;
+            flex: 1;
+            font-size: 1.2rem;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        .tab-button:hover {
+            background-color: #444;
+            transform: scale(1.05);
+        }
+        .tab-content {
+            padding: 40px;
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        .hero-section {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('pictures/background.jpeg');
+            background-size: cover;
+            background-position: top center;
+            color: #ffffff;
+            padding: 200px 20px;
+            text-align: center;
+            position: relative;
+        }
+        .hero-section h1 {
+            font-size: 3.5rem;
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        .hero-section p {
+            font-size: 1.5rem;
+            margin: 20px 0;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .hero-section button {
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            color: #1f1f1f;
+            background-color: #e8a22d;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        .hero-section button:hover {
+            background-color: #d18e1f;
+            transform: scale(1.1);
+        }
+        .features-section {
+            display: flex;
+            justify-content: space-around;
+            padding: 60px 20px;
+            background-color: #333;
+        }
+        .feature {
+            width: 25%;
+            text-align: center;
+            color: #f7f5f0;
+            transition: transform 0.3s;
+        }
+        .feature:hover {
+            transform: scale(1.05);
+        }
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+        .feature-title {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+        .feature p {
+            font-size: 1rem;
+            line-height: 1.5;
+            max-width: 300px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .call-to-action {
+            background-color: #444;
+            color: #f7f5f0;
+            text-align: center;
+            padding: 50px 20px;
+        }
+        .call-to-action h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        .call-to-action p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .call-to-action button {
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            color: #1f1f1f;
+            background-color: #e8a22d;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        .call-to-action button:hover {
+            background-color: #d18e1f;
+            transform: scale(1.1);
+        }
+        .fade-effect {
+            animation: fadeIn 3s ease-in-out;
+        }
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+        .data-insights {
+            background-color: #444;
+            padding: 60px 20px;
+            color: #f7f5f0;
+            border-radius: 10px;
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
+            max-width: 800px;
+            margin: 40px auto;
+            position: relative;
+        }
+        .data-insights h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .data-insights p {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+        .data-insights p strong {
+            color: #e8a22d;
+        }
+        .additional-insights {
+            background-color: #555;
+            padding: 60px 20px;
+            color: #f7f5f0;
+            border-radius: 10px;
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
+            max-width: 800px;
+            margin: 40px auto;
+        }
+        .additional-insights h2 {
+            font-size: 2.2rem;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .additional-insights p {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+        .stats-sidebar {
+            position: absolute;
+            top: 40px;
+            left: -300px;
+            background-color: #1f1f1f;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+            color: #f7f5f0;
+            max-width: 250px;
+        }
+        .stats-sidebar h3 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: #e8a22d;
+        }
+        .stat-box {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .stat-icon {
+            font-size: 2rem;
+            margin-right: 15px;
+            color: #e8a22d;
+        }
+        .stat-info {
+            font-size: 1rem;
+        }
+        .stat-info strong {
+            font-size: 1.5rem;
+            color: #ffffff;
+        }
+        .stat-info p {
+            margin: 0;
+            font-size: 0.9rem;
+        }
+        .mitigation-strategies {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 60px 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
+            max-width: 1000px;
+            margin: 40px auto;
+            color: #f7f5f0;
+        }
+        .mitigation-strategies h2 {
+            grid-column: 1 / -1;
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .mitigation-card {
+            background-color: #444;
+            padding: 30px;
+            border-radius: 10px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+        }
+        .mitigation-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.7);
+        }
+        .mitigation-card h3 {
+            font-size: 2rem;
+            color: #e8a22d;
+            margin-bottom: 20px;
+        }
+        .mitigation-card ul {
+            list-style-type: disc;
+            padding-left: 20px;
+        }
+        .mitigation-card ul li {
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #f7f5f0;
+        }
+        .future-implications {
+            padding: 60px 20px;
+            max-width: 1000px;
+            margin: 40px auto;
+            background-color: #333;
+            border-radius: 10px;
+            color: #f7f5f0;
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
+        }
+        .future-implications h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .future-card {
+            background-color: #2b2b2b;
+            padding: 30px;
+            margin: 20px 0;
+            border-radius: 10px;
+            border-left: 6px solid #e8a22d;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .future-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.7);
+        }
+        .future-card h3 {
+            font-size: 2rem;
+            color: #e8a22d;
+            margin-bottom: 20px;
+        }
+        .future-card p {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: #f7f5f0;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="hero-section fade-effect">
+        <h1>Welcome to Wildfire Risk Mitigation</h1>
+        <p>Wildfires are a growing threat to communities and ecosystems, especially in fire-prone areas like California. Our mission is to provide insights, strategies, and future implications for mitigating wildfire risks, focusing on power system resilience and proactive measures.</p>
+        <button onclick="showTab('data')">Learn More</button>
+    </div>
+
+    <div class="tabs">
+        <button class="tab-button" onclick="showTab('home')">Home</button>
+        <button class="tab-button" onclick="showTab('data')">Data Insights</button>
+        <button class="tab-button" onclick="showTab('strategies')">Mitigation Strategies</button>
+        <button class="tab-button" onclick="showTab('implications')">Future Implications</button>
+    </div>
+
+    <div id="home" class="tab-content active">
+        <div class="features-section">
+            <div class="feature">
+                <div class="feature-icon">&#128293;</div>
+                <div class="feature-title">About Wildfires</div>
+                <p>Understand the basics of wildfires and their impact on our environment.</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">&#127795;</div>
+                <div class="feature-title">Mitigation Strategies</div>
+                <p>Learn about structural hardening, asset inspections, and other mitigation techniques.</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">&#9889;</div>
+                <div class="feature-title">Future Planning</div>
+                <p>Discover future technologies and innovations to prevent wildfires.</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="data" class="tab-content">
+        <div class="data-insights">
+            <h2>Data Insights</h2>
+            <p>Power lines account for approximately <strong>1% of wildfire ignitions</strong> in California, but fires started by power lines tend to burn significantly more land area compared to other ignition sources like lightning or arson.</p>
+            <p>Many U.S. power distribution systems are over <strong>30 years old</strong> with an expected lifespan of <strong>40-50 years</strong>, making them increasingly vulnerable to faults and failures under adverse conditions.</p>
+            <p>A proactive de-energization event in California in 2018 temporarily cut power to <strong>60,000 customers</strong> and revealed <strong>18 damaged spans of conductor</strong>, among other infrastructure issues, demonstrating the benefits of proactive risk mitigation.</p>
+            <div class="stats-sidebar">
+                <h3>In 2024 alone...</h3>
+                <div class="stat-box">
+                    <div class="stat-icon">&#128293;</div>
+                    <div class="stat-info">
+                        <strong>555,349</strong>
+                        <p>Total Emergency Responses</p>
+                    </div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-icon">&#128165;</div>
+                    <div class="stat-info">
+                        <strong>7,830</strong>
+                        <p>Wildfires</p>
+                    </div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-icon">&#128204;</div>
+                    <div class="stat-info">
+                        <strong>1,045,204</strong>
+                        <p>Acres Burned</p>
+                    </div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-icon">&#10060;</div>
+                    <div class="stat-info">
+                        <strong>1</strong>
+                        <p>Fatalities</p>
+                    </div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-icon">&#127969;</div>
+                    <div class="stat-info">
+                        <strong>2,077</strong>
+                        <p>Structures Affected</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="additional-insights">
+            <h2>Additional Insights</h2>
+            <p>Wildfire mitigation requires a multi-faceted approach including fault prevention, ignition reduction, and fire response enhancement. Strategies like <strong>structural hardening</strong> and advanced <strong>protection systems</strong> are crucial to reduce faults.</p>
+            <p>Using <strong>machine learning</strong> for early fire detection and advanced analytics for fault detection can significantly improve situational awareness and rapid response capabilities.</p>
+            <p>Investments in grid infrastructure, such as <strong>burying power lines</strong> or using steel poles, though costly, can greatly reduce the likelihood of wildfire ignitions from power system failures.</p>
+        </div>
+    </div>
+
+    <div id="strategies" class="tab-content">
+        <div class="mitigation-strategies">
+            <h2>Mitigation Strategies</h2>
+            <div class="mitigation-card">
+                <h3>Fault Prevention</h3>
+                <ul>
+                    <li><strong>Structural Hardening</strong>: Replace wooden poles with steel or fiberglass, or bury power lines underground to reduce fault probability.</li>
+                    <li><strong>Asset Inspections</strong>: Conduct routine inspections annually, especially in high-threat areas.</li>
+                    <li><strong>Advanced Protection Systems</strong>: Use high-impedance fault detection and waveform analytics to detect abnormalities before they become severe.</li>
+                </ul>
+            </div>
+            <div class="mitigation-card">
+                <h3>Ignition Prevention</h3>
+                <ul>
+                    <li><strong>Arc Suppression</strong>: Reduce arc duration by using sensitive relay protection.</li>
+                    <li><strong>Disable Reclosers</strong>: Avoid automatic re-energization in high-risk areas to prevent subsequent faults.</li>
+                </ul>
+            </div>
+            <div class="mitigation-card">
+                <h3>Fire Response and Impact Mitigation</h3>
+                <ul>
+                    <li><strong>Situational Awareness</strong>: Install high-definition cameras and use machine learning for early fire detection.</li>
+                    <li><strong>Emergency Planning</strong>: Coordinate with stakeholders for fire suppression and provide backup power to critical facilities during outages.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div id="implications" class="tab-content">
+        <div class="future-implications">
+            <h2>Future Implications</h2>
+            <div class="future-card">
+                <h3>Burying Power Lines</h3>
+                <p>Highly effective but costly, requiring <strong>hundreds of thousands of dollars per mile</strong> and a long implementation time. Burying power lines is a significant investment that can greatly reduce the risk of wildfire ignitions from power system failures, but it requires careful consideration of cost and practicality.</p>
+            </div>
+            <div class="future-card">
+                <h3>Proactive De-energization</h3>
+                <p>Effective in preventing wildfire ignitions but impacts customers heavily by cutting power during high-risk periods. This technique helps avoid fires during adverse weather conditions, but it can be disruptive to residents and businesses, especially during prolonged outages.</p>
+            </div>
+            <div class="future-card">
+                <h3>Future Innovations</h3>
+                <p>Expanding the use of <strong>machine learning</strong> for fire detection, researching cost-effective underground cabling, and developing advanced fault detection systems are key areas of future development. These innovations aim to provide faster, more efficient responses to potential fire hazards and minimize the overall risk to communities.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="call-to-action">
+        <h2>Join the Fight Against Wildfires</h2>
+        <p>Your actions can make a difference. Learn how you can contribute to wildfire prevention efforts and help protect our communities and natural habitats.</p>
+        <button onclick="showTab('strategies')">Get Involved</button>
+    </div>
+
+    <script>
+        function showTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+        }
+    </script>
+
+</body>
+</html>
