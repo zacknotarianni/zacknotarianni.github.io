@@ -698,9 +698,11 @@
           isCorrect = true;
         }
       } else {
-        if (userAnswerRaw.toLowerCase() === currentAnswer.toString().toLowerCase()) {
+        const normalizedUserAnswer = userAnswerRaw.replace(/\s+/g, '').toLowerCase();
+        const normalizedCorrectAnswer = currentAnswer.toString().replace(/\s+/g, '').toLowerCase();
+        if (normalizedUserAnswer === normalizedCorrectAnswer) {
           isCorrect = true;
-        }
+        } 
       }
       
       attemptedCount++;
