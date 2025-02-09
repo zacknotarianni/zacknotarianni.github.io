@@ -552,10 +552,10 @@
         }
         case 5: {
           const quarts = randomFloat(1, 10, 2);
-          const liters = parseFloat((quarts * 0.946353).toFixed(2));
+          const liters = parseFloat((quarts * 0.96).toFixed(2));
           problemText = `Convert ${quarts} quart${quarts !== 1 ? "s" : ""} to liters.`;
           answer = liters;
-          explanation = `${quarts} quart${quarts !== 1 ? "s" : ""} × 0.946353 ≈ ${liters} L.`;
+          explanation = `${quarts} quart${quarts !== 1 ? "s" : ""} × 0.96 ≈ ${liters} L.`;
           break;
         }
       }
