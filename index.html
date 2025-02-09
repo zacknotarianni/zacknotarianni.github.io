@@ -4,244 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Math Practice App &amp; Formulas Cheat Sheet</title>
-  
+  <!-- Link to external CSS file -->
+  <link rel="stylesheet" href="css/styles.css" />
   <!-- MathJax for rendering math formulas in the cheat sheet -->
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
-  
-  <style>
-    /* Import a friendly font from Google Fonts */
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
-
-    /* Global Styles */
-    body {
-      font-family: 'Poppins', sans-serif;
-      background: #f8f9fc; /* Soft off-white with a slight blue tint */
-      margin: 0;
-      padding: 20px;
-      color: #2d2d2d;
-      text-align: center;
-    }
-
-    /* Navigation Bar */
-    nav {
-      background: #333;
-      color: #fff;
-      padding: 10px 0;
-      margin-bottom: 20px;
-    }
-    nav a {
-      color: #fff;
-      margin: 0 15px;
-      text-decoration: none;
-      font-weight: 500;
-    }
-    nav a:hover {
-      text-decoration: underline;
-    }
-
-    /* Cute Icon for Header */
-    h1::before {
-      content: "🌈 ";
-    }
-
-    h1 {
-      color: #344e34;
-      font-weight: 600;
-      font-size: 26px;
-    }
-
-    /* Main Container (for Practice App and Cheat Sheet) */
-    .container {
-      max-width: 600px;
-      margin: 40px auto;
-      background: #ffffff;
-      border-radius: 12px;
-      padding: 30px;
-      box-shadow: 0 6px 20px rgba(128, 128, 255, 0.15); /* Soft purple-blue shadow */
-      transition: transform 0.3s ease;
-      text-align: left;
-    }
-    .container:hover {
-      transform: scale(1.02);
-    }
-
-    /* Styles for the Math Practice App elements */
-    label {
-      font-weight: 500;
-      color: #555;
-      display: block;
-      font-size: 16px;
-      margin-bottom: 8px;
-    }
-
-    select {
-      width: 100%;
-      padding: 10px;
-      border: 2px solid #7fa8f8; /* Blue accent */
-      border-radius: 8px;
-      background-color: #ffffff;
-      font-size: 16px;
-      outline: none;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-
-    select:hover {
-      background: #eef5ff;
-    }
-
-    .problem-container {
-      background-color: #ffffff;
-      border: 2px solid #7cc383; /* Green accent */
-      border-radius: 12px;
-      padding: 20px;
-      margin: 20px 0;
-      box-shadow: 0px 4px 10px rgba(255, 165, 0, 0.1); /* Warm orange highlight */
-    }
-
-    .problem-container::before {
-      content: "📚";
-      font-size: 18px;
-      display: block;
-      margin-bottom: 10px;
-      color: #ffb84d;
-    }
-
-    #problemText {
-      font-size: 18px;
-      font-weight: 500;
-      color: #2d5a2d;
-      margin-bottom: 15px;
-    }
-
-    input[type="text"] {
-      width: calc(100% - 20px);
-      padding: 12px;
-      font-size: 16px;
-      border: 2px solid #7cc383;
-      border-radius: 8px;
-      outline: none;
-      transition: 0.3s;
-    }
-
-    input[type="text"]:focus {
-      border-color: #ffab40; /* Warm orange focus */
-      background: #fffaf0; /* Soft warm tone */
-    }
-
-    button {
-      padding: 12px 18px;
-      font-size: 16px;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: background-color 0.3s ease, transform 0.2s ease;
-      font-weight: 500;
-      margin: 5px;
-    }
-
-    #submitAnswer {
-      background: #4d88ff; /* Blue primary */
-      color: #ffffff;
-    }
-
-    #submitAnswer:hover {
-      background: #3a6ee8;
-    }
-
-    #nextProblem {
-      background: #f28544; /* Warm orange */
-      color: #ffffff;
-    }
-
-    #nextProblem:hover {
-      background: #d9733b;
-    }
-
-    .feedback {
-      font-size: 16px;
-      margin-top: 12px;
-      font-weight: bold;
-    }
-
-    .feedback.correct {
-      color: #1c7d1c;
-    }
-
-    .feedback.incorrect {
-      color: #b22222;
-    }
-
-    .score {
-      text-align: center;
-      margin-top: 20px;
-      font-size: 16px;
-      font-weight: 500;
-      color: #2d6a2d;
-    }
-
-    /* Cheat Sheet Specific Styles */
-    /* Hide cheat sheet container by default */
-    #formulas {
-      display: none;
-    }
-    #formulas h2 {
-      text-align: center;
-      margin-top: 0;
-    }
-    #formulas section {
-      margin-bottom: 30px;
-    }
-    #formulas section h3 {
-      border-bottom: 1px solid #ddd;
-      padding-bottom: 5px;
-      margin-bottom: 10px;
-    }
-    #formulas section article h4 {
-      margin-bottom: 5px;
-    }
-    #formulas ul {
-      list-style: none;
-      padding-left: 0;
-    }
-    #formulas ul li {
-      background: #f4f4f4;
-      padding: 8px;
-      margin: 5px 0;
-      border-radius: 4px;
-    }
-
-    /* Toggle Button Container */
-    .toggle-container {
-      text-align: center;
-      margin: 20px 0;
-    }
-
-    /* Responsive adjustments */
-    @media (max-width: 600px) {
-      nav {
-        font-size: 14px;
-      }
-      .container {
-        margin: 20px;
-        padding: 20px;
-      }
-    }
-
-    /* Cute floating stars animation (for practice app feedback) */
-    @keyframes floatingStars {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.1); }
-      100% { transform: scale(1); }
-    }
-    .star {
-      display: inline-block;
-      font-size: 20px;
-      animation: floatingStars 3s infinite ease-in-out;
-      margin-left: 5px;
-      color: #ffcc00; /* Gold stars */
-    }
-  </style>
 </head>
 <body>
   <!-- Navigation Bar -->
@@ -257,15 +23,10 @@
     <div>
       <label for="problemType">Select Problem Type: </label>
       <select id="problemType">
-        <option value="basicArithmetic">Basic Arithmetic</option>
-        <option value="orderOfOperations">Order of Operations</option>
-        <option value="fractionsDecimals">Fractions and Decimals</option>
-        <option value="ratiosProportions">Ratios and Proportions</option>
-        <option value="percentageProblems">Percentage Problems</option>
+        <option value="arithmeticAlgebra">Arithmetic & Algebra</option>
+        <option value="fractionsDecimals">Fractions & Decimals</option>
         <option value="unitConversions">Unit Conversions</option>
-        <option value="timeMoneyWord">Time and Money Word Problems</option>
-        <option value="algebraicExpressions">Evaluating Algebraic Expressions</option>
-        <option value="solvingForX">Solving for x (Linear Equations)</option>
+        <option value="wordProblems">Word Problems</option>
       </select>
     </div>
 
@@ -295,7 +56,7 @@
   <!-- Math Formulas Cheat Sheet Container -->
   <div class="container" id="formulas">
     <h2>Math Formulas Cheat Sheet</h2>
-
+  
     <!-- Unit Conversions (Volume) -->
     <section id="unit-conversions">
       <h3>Unit Conversions (Volume)</h3>
@@ -308,7 +69,7 @@
         <li>\(1\,\text{L} = 1000\,\text{mL}\)</li>
       </ul>
     </section>
-
+  
     <!-- Mixed Fraction to Improper Fraction -->
     <section id="mixed-to-improper">
       <h3>Mixed Fraction to Improper Fraction</h3>
@@ -317,21 +78,21 @@
       <p><strong>Where:</strong> \(a\) = whole number, \(b\) = numerator, \(c\) = denominator.</p>
       <p><strong>Example:</strong> \(3\,\frac{2}{5} = \frac{(3 \times 5) + 2}{5} = \frac{17}{5}\)</p>
     </section>
-
+  
     <!-- Improper Fraction to Mixed Number -->
     <section id="improper-to-mixed">
       <h3>Improper Fraction to Mixed Number</h3>
       <p>For an improper fraction \(\frac{N}{D}\), divide \(N\) by \(D\) to get the whole number, and the remainder becomes the new numerator.</p>
       <p><strong>Example:</strong> \(\frac{17}{5} = 3\,\frac{2}{5}\)</p>
     </section>
-
+  
     <!-- Temperature Conversion -->
     <section id="temperature-conversion">
       <h3>Temperature Conversion</h3>
       <p><strong>Celsius to Fahrenheit:</strong> \( F = \frac{9}{5}C + 32 \)</p>
       <p><strong>Fahrenheit to Celsius:</strong> \( C = \frac{5}{9}(F - 32) \)</p>
     </section>
-
+  
     <!-- Conversions Between Decimal, Fraction, and Percent -->
     <section id="decimal-fraction-percent">
       <h3>Conversions Between Decimal, Fraction, and Percent</h3>
@@ -366,401 +127,58 @@
         <p><strong>Example:</strong> \(75\% = \frac{75}{100} = \frac{3}{4}\)</p>
       </article>
     </section>
+  
+    <!-- Unit Conversions (Weight) -->
+    <section id="unit-conversions-weight">
+      <h3>Unit Conversions (Weight)</h3>
+      <ul>
+        <li>\(1\,\text{gram} = 0.001\,\text{kilograms}\)</li>
+        <li>\(1\,\text{kilogram} = 1000\,\text{grams}\)</li>
+        <li>\(1\,\text{ounce} = \frac{1}{16}\,\text{pounds}\)</li>
+        <li>\(1\,\text{pound} = 16\,\text{ounces}\)</li>
+      </ul>
+    </section>
+  
+    <!-- Unit Conversions (Length) -->
+    <section id="unit-conversions-length">
+      <h3>Unit Conversions (Length)</h3>
+      <ul>
+        <li>\(1\,\text{meter} = 3.28084\,\text{feet}\)</li>
+        <li>\(1\,\text{yard} = 3\,\text{feet} = 36\,\text{inches}\)</li>
+        <li>\(1\,\text{centimeter} = 0.01\,\text{meters}\)</li>
+        <li>\(1\,\text{cm} = 10\,\text{mm}\)</li>
+      </ul>
+    </section>
+  
+    <!-- Solving for x (Quadratic Equations) -->
+    <section id="solving-quadratic">
+      <h3>Solving for x (Quadratic Equations)</h3>
+      <p>For a quadratic equation in the form \(ax^2 + bx + c = 0\), the solutions for \(x\) are given by:</p>
+      <p>\( x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a} \)</p>
+      <p><strong>Example:</strong> Solve \(4x^2 - 61 = 135\).<br>
+         Add 61 to both sides: \(4x^2 = 196\).<br>
+         Divide by 4: \(x^2 = 49\).<br>
+         Take the square root: \(x = \pm7\).
+      </p>
+    </section>
+  
+    <!-- Fractions Operations -->
+    <section id="fractions-operations">
+      <h3>Fractions Operations</h3>
+      <article>
+        <h4>Subtracting Mixed Fractions</h4>
+        <p>To subtract mixed fractions, first convert the mixed numbers to improper fractions and then subtract.</p>
+        <p><strong>Example:</strong> \(7 - 2\frac{1}{2} = \frac{14}{2} - \frac{5}{2} = \frac{9}{2} = 4.5\) or \(4\frac{1}{2}\).</p>
+      </article>
+      <article>
+        <h4>Dividing Fractions</h4>
+        <p>Divide fractions by multiplying the first fraction by the reciprocal of the second.</p>
+        <p><strong>Example:</strong> \(\frac{3}{7} \div \frac{2}{11} = \frac{3}{7} \times \frac{11}{2} = \frac{33}{14} = 2\frac{5}{14}\).</p>
+      </article>
+    </section>
   </div>
 
-  <!-- JavaScript for the Practice App and Cheat Sheet Toggle -->
-  <script>
-    // --- Math Practice App JavaScript ---
-    let correctCount = 0;
-    let attemptedCount = 0;
-    let currentAnswer = null;
-    let currentProblem = {};
-
-    function updateScore() {
-      document.getElementById('scoreDisplay').textContent =
-        `Score: ${correctCount} correct out of ${attemptedCount} attempted.`;
-    }
-
-    function randomInt(min, max) {
-      return Math.floor(Math.random() * (max - min + 1)) + min;
-    }
-    function randomFloat(min, max, decimals = 2) {
-      const factor = Math.pow(10, decimals);
-      return Math.round((Math.random() * (max - min) + min) * factor) / factor;
-    }
-
-    // Basic Arithmetic
-    function generateBasicArithmetic() {
-      const operators = ['+', '-', '*', '/'];
-      const op = operators[randomInt(0, operators.length - 1)];
-      let num1 = randomFloat(1, 100, 2);
-      let num2 = randomFloat(1, 100, 2);
-      if (op === '/') {
-        num2 = randomFloat(1, 10, 2);
-      }
-      const problemText = `${num1} ${op} ${num2} = ?`;
-      let answer;
-      switch (op) {
-        case '+': answer = num1 + num2; break;
-        case '-': answer = num1 - num2; break;
-        case '*': answer = num1 * num2; break;
-        case '/': answer = num1 / num2; break;
-      }
-      answer = parseFloat(answer.toFixed(2));
-      return {
-        problemText,
-        answer,
-        explanation: `Computed as ${num1} ${op} ${num2} = ${answer}.`
-      };
-    }
-
-    // Order of Operations
-    function generateOrderOfOperations() {
-      const a = randomInt(10, 50);
-      const b = randomInt(10, 50);
-      const c = randomInt(1, 10);
-      const d = randomInt(1, 10);
-      const problemText = `${a} - ${b} ÷ ${c} × ${d} = ?`;
-      let intermediate = (b / c) * d;
-      let answer = a - intermediate;
-      answer = parseFloat(answer.toFixed(2));
-      return {
-        problemText,
-        answer,
-        explanation: `Compute ${b} ÷ ${c} = ${(b / c).toFixed(2)}, then multiply by ${d} to get ${(b / c * d).toFixed(2)}, and finally subtract from ${a}.`
-      };
-    }
-
-    // Fractions and Decimals
-    function generateFractionsDecimals() {
-      const conversionType = Math.random() < 0.5 ? 'fractionToDecimal' : 'decimalToFraction';
-      if (conversionType === 'fractionToDecimal') {
-        const numerator = randomInt(1, 10);
-        const denominator = randomInt(numerator + 1, 15);
-        const decimalVal = parseFloat((numerator / denominator).toFixed(2));
-        const percentVal = Math.round(decimalVal * 100);
-        const problemText = `Express ${numerator}/${denominator} as a decimal and percent. (Format: decimal, percent)`;
-        return {
-          problemText,
-          answer: `${decimalVal}, ${percentVal}%`,
-          explanation: `${numerator}/${denominator} = ${decimalVal} and ${decimalVal} × 100 = ${percentVal}%.`
-        };
-      } else {
-        const decimalVal = randomFloat(0.1, 0.9, 2);
-        let denominator = 100;
-        let numerator = Math.round(decimalVal * denominator);
-        function gcd(a, b) { return b === 0 ? a : gcd(b, a % b); }
-        const divisor = gcd(numerator, denominator);
-        numerator = numerator / divisor;
-        denominator = denominator / divisor;
-        const percentVal = Math.round(decimalVal * 100);
-        const problemText = `Convert ${decimalVal} to a fraction and percent. (Format: fraction, percent)`;
-        return {
-          problemText,
-          answer: `${numerator}/${denominator}, ${percentVal}%`,
-          explanation: `${decimalVal} = ${numerator}/${denominator} and ${decimalVal} × 100 = ${percentVal}%.`
-        };
-      }
-    }
-
-    // Ratios and Proportions
-    function generateRatiosProportions() {
-      const a = randomInt(1, 20);
-      const b = randomInt(1, 20);
-      const problemText = `${a}:${b} :: x:100. Solve for x.`;
-      const answer = parseFloat(((a * 100) / b).toFixed(2));
-      return {
-        problemText,
-        answer,
-        explanation: `x = (a × 100) / b = (${a} × 100) / ${b} = ${answer}.`
-      };
-    }
-
-    // Percentage Problems
-    function generatePercentageProblems() {
-      if (Math.random() < 0.5) {
-        const births = randomInt(50, 100);
-        const percentGirls = randomInt(40, 60);
-        const percentBoys = 100 - percentGirls;
-        const problemText = `A hospital had ${births} births, and ${percentGirls}% were girls. How many were boys?`;
-        const boys = Math.round(births * percentBoys / 100);
-        return {
-          problemText,
-          answer: boys,
-          explanation: `Boys = ${births} × (${percentBoys}/100) = ${boys}.`
-        };
-      } else {
-        const coffee = randomInt(20, 50);
-        const reduction = randomInt(10, 30);
-        const problemText = `A patient drinks ${coffee} oz of coffee daily but needs to reduce by ${reduction}%. How many ounces can they drink now?`;
-        const reduced = parseFloat((coffee * (1 - reduction / 100)).toFixed(2));
-        return {
-          problemText,
-          answer: reduced,
-          explanation: `Reduced amount = ${coffee} × (1 - ${reduction}/100) = ${reduced} oz.`
-        };
-      }
-    }
-
-    // Unit Conversions
-    function generateUnitConversions() {
-      const type = randomInt(0, 5);
-      let problemText = "";
-      let answer;
-      let explanation = "";
-      switch (type) {
-        case 0: {
-          const quarts = randomFloat(1, 10, 2);
-          const pints = parseFloat((quarts * 2).toFixed(2));
-          problemText = `Convert ${quarts} quart${quarts !== 1 ? "s" : ""} to pints.`;
-          answer = pints;
-          explanation = `${quarts} quart${quarts !== 1 ? "s" : ""} × 2 = ${pints} pints.`;
-          break;
-        }
-        case 1: {
-          const pints = randomFloat(1, 10, 2);
-          const cups = parseFloat((pints * 2).toFixed(2));
-          problemText = `Convert ${pints} pint${pints !== 1 ? "s" : ""} to cups.`;
-          answer = cups;
-          explanation = `${pints} pint${pints !== 1 ? "s" : ""} × 2 = ${cups} cups.`;
-          break;
-        }
-        case 2: {
-          const cups = randomFloat(1, 10, 2);
-          const flOz = parseFloat((cups * 8).toFixed(2));
-          problemText = `Convert ${cups} cup${cups !== 1 ? "s" : ""} to fluid ounces.`;
-          answer = flOz;
-          explanation = `${cups} cup${cups !== 1 ? "s" : ""} × 8 = ${flOz} fl oz.`;
-          break;
-        }
-        case 3: {
-          // Updated conversion: 1 fl oz = 30 mL
-          const flOz = randomFloat(1, 10, 2);
-          const mL = parseFloat((flOz * 30).toFixed(2));
-          problemText = `Convert ${flOz} fluid ounce${flOz !== 1 ? "s" : ""} to milliliters.`;
-          answer = mL;
-          explanation = `${flOz} fl oz × 30 = ${mL} mL.`;
-          break;
-        }
-        case 4: {
-          const mL = randomFloat(100, 1000, 0);
-          const liters = parseFloat((mL / 1000).toFixed(2));
-          problemText = `Convert ${mL} milliliters to liters.`;
-          answer = liters;
-          explanation = `${mL} mL ÷ 1000 = ${liters} L.`;
-          break;
-        }
-        case 5: {
-          const quarts = randomFloat(1, 10, 2);
-          const liters = parseFloat((quarts * 0.96).toFixed(2));
-          problemText = `Convert ${quarts} quart${quarts !== 1 ? "s" : ""} to liters.`;
-          answer = liters;
-          explanation = `${quarts} quart${quarts !== 1 ? "s" : ""} × 0.96 ≈ ${liters} L.`;
-          break;
-        }
-      }
-      return { problemText, answer, explanation };
-    }
-
-    // Time and Money Word Problems
-    function generateTimeMoneyWord() {
-      const wage = randomFloat(10, 20, 2);
-      let totalHours = 0;
-      let hoursDetails = [];
-      for (let i = 0; i < 5; i++) {
-        const hours = randomFloat(4, 10, 1);
-        totalHours += hours;
-        hoursDetails.push(hours);
-      }
-      totalHours = parseFloat(totalHours.toFixed(1));
-      const totalWage = parseFloat((totalHours * wage).toFixed(2));
-      const problemText = `A worker earns $${wage}/hour and worked ${hoursDetails.join(", ")} hours from Monday to Friday. Calculate their total weekly wage.`;
-      return {
-        problemText,
-        answer: totalWage,
-        explanation: `Total hours = ${totalHours}. Total wage = ${totalHours} × $${wage} = $${totalWage}.`
-      };
-    }
-
-    // Evaluating Algebraic Expressions
-    function generateAlgebraicExpressions() {
-      const a = randomInt(1, 5);
-      const b = randomInt(-5, 5);
-      const c = randomInt(-5, 5);
-      const d = randomInt(-10, 10);
-      const x = randomInt(-5, 5);
-      const y = randomInt(-5, 5);
-      const problemText = `Evaluate ${a}x² ${b >= 0 ? "+ " + b + "xy" : "- " + Math.abs(b) + "xy"} ${c >= 0 ? "+ " + c + "y²" : "- " + Math.abs(c) + "y²"} ${d >= 0 ? "+ " + d : "- " + Math.abs(d)} for x = ${x} and y = ${y}.`;
-      let answer = a * x * x + b * x * y + c * y * y + d;
-      return {
-        problemText,
-        answer,
-        explanation: `Substitute x = ${x} and y = ${y} into the expression: ${a}×${x}² + ${b}×${x}×${y} + ${c}×${y}² + ${d} = ${answer}.`
-      };
-    }
-
-    // Solving for x (Linear Equations)
-    function generateSolvingForX() {
-      const type = randomInt(0, 3);
-      let problemText = "";
-      let answer;
-      let explanation = "";
-      if (type === 0) {
-        const coeff = randomInt(1, 10);
-        const constant = randomInt(1, 20);
-        const rhs = randomInt(20, 50);
-        problemText = `Solve for x: ${coeff}x - ${constant} = ${rhs}.`;
-        answer = (rhs + constant) / coeff;
-        explanation = `Add ${constant} to both sides: ${coeff}x = ${rhs + constant}. Then, x = (${rhs + constant}) / ${coeff} = ${answer}.`;
-      } else if (type === 1) {
-        const constant = randomInt(1, 20);
-        const coeff = randomInt(1, 10);
-        const rhs = randomInt(20, 50);
-        problemText = `Solve for x: ${constant} - ${coeff}x = ${rhs}.`;
-        answer = (constant - rhs) / coeff;
-        explanation = `Subtract ${constant} from both sides: -${coeff}x = ${rhs - constant}. Then, x = (${constant} - ${rhs}) / ${coeff} = ${answer}.`;
-      } else if (type === 2) {
-        const constant1 = randomInt(1, 10);
-        const constant2 = randomInt(1, 10);
-        const rhs = randomInt(10, 20);
-        problemText = `Solve for x: ${constant1} - (x - ${constant2}) = ${rhs}.`;
-        answer = constant1 + constant2 - rhs;
-        explanation = `Expand: ${constant1} - x + ${constant2} = ${rhs}. Then, x = ${constant1} + ${constant2} - ${rhs} = ${answer}.`;
-      } else {
-        const multiplier = randomInt(1, 5);
-        const coeffInside = randomInt(1, 10);
-        const constantInside = randomInt(1, 20);
-        problemText = `Solve for x: ${multiplier}(${coeffInside}x - ${constantInside}) = ${multiplier * coeffInside}x - ${multiplier * constantInside}. (Infinite solutions)`;
-        answer = "infinite";
-        explanation = `Both sides simplify to the same expression, so there are infinitely many solutions.`;
-      }
-      if (typeof answer === "number") {
-        answer = parseFloat(answer.toFixed(2));
-      }
-      return { problemText, answer, explanation };
-    }
-
-    // Generate a new problem based on the selected type.
-    function generateProblem() {
-      const problemType = document.getElementById("problemType").value;
-      let problemObj;
-      switch (problemType) {
-        case "basicArithmetic":
-          problemObj = generateBasicArithmetic();
-          break;
-        case "orderOfOperations":
-          problemObj = generateOrderOfOperations();
-          break;
-        case "fractionsDecimals":
-          problemObj = generateFractionsDecimals();
-          break;
-        case "ratiosProportions":
-          problemObj = generateRatiosProportions();
-          break;
-        case "percentageProblems":
-          problemObj = generatePercentageProblems();
-          break;
-        case "unitConversions":
-          problemObj = generateUnitConversions();
-          break;
-        case "timeMoneyWord":
-          problemObj = generateTimeMoneyWord();
-          break;
-        case "algebraicExpressions":
-          problemObj = generateAlgebraicExpressions();
-          break;
-        case "solvingForX":
-          problemObj = generateSolvingForX();
-          break;
-        default:
-          problemObj = {
-            problemText: "Problem type not found.",
-            answer: null,
-            explanation: ""
-          };
-      }
-      currentProblem = problemObj;
-      currentAnswer = problemObj.answer;
-      document.getElementById("problemText").textContent = problemObj.problemText;
-      document.getElementById("feedback").textContent = "";
-      document.getElementById("hint").textContent = "";
-      document.getElementById("answerInput").value = "";
-    }
-
-    // Check the user's answer.
-    function checkAnswer() {
-      const userAnswerRaw = document.getElementById("answerInput").value.trim();
-      const feedbackElem = document.getElementById("feedback");
-      let isCorrect = false;
-      if (typeof currentAnswer === "number") {
-        const userAnswer = parseFloat(userAnswerRaw);
-        if (!isNaN(userAnswer) && Math.abs(userAnswer - currentAnswer) < 0.01) {
-          isCorrect = true;
-        }
-      } else {
-        const normalizedUserAnswer = userAnswerRaw.replace(/\s+/g, '').toLowerCase();
-        const normalizedCorrectAnswer = currentAnswer.toString().replace(/\s+/g, '').toLowerCase();
-        if (normalizedUserAnswer === normalizedCorrectAnswer) {
-          isCorrect = true;
-        } 
-      }
-      
-      attemptedCount++;
-      if (isCorrect) {
-        correctCount++;
-        const motivationMessages = [
-          "Great job, Cassie! Keep it up!",
-          "Excellent work, Cassie! You're doing amazing!",
-          "Awesome, Cassie! Your math skills are on point!",
-          "Way to go, Cassie! Every problem conquered!",
-          "Fantastic effort, Cassie! Keep shining!",
-          "You're a math superstar, Cassie! Well done!",
-          "Brilliant work, Cassie! You're making progress!",
-          "Keep rocking it, Cassie! You're unstoppable!",
-          "Outstanding, Cassie! Your hard work shows!",
-          "Superb, Cassie! Every answer counts!",
-          "You're crushing it, Cassie! Keep the momentum!",
-          "Impressive, Cassie! Your skills keep growing!",
-          "Kudos, Cassie! Your dedication is inspiring!",
-          "Amazing job, Cassie! Keep challenging yourself!",
-          "Remarkable, Cassie! You're a problem-solving pro!",
-          "Keep it up, Cassie! You're mastering these problems!",
-          "You did it, Cassie! Another one down!",
-          "Incredible work, Cassie! You're on the right track!",
-          "Bravo, Cassie! Your efforts are paying off!",
-          "Fantastic, Cassie! You're truly talented!"
-        ];
-        const randomIndex = randomInt(0, motivationMessages.length - 1);
-        const message = motivationMessages[randomIndex];
-        feedbackElem.textContent = "Correct! " + message;
-        feedbackElem.style.color = "green";
-      } else {
-        feedbackElem.textContent = `Incorrect. ${currentProblem.explanation}`;
-        feedbackElem.style.color = "red";
-      }
-      updateScore();
-    }
-
-    // Event listeners for the Practice App.
-    document.getElementById("submitAnswer").addEventListener("click", checkAnswer);
-    document.getElementById("nextProblem").addEventListener("click", generateProblem);
-    document.getElementById("problemType").addEventListener("change", generateProblem);
-
-    // Generate an initial problem on page load.
-    generateProblem();
-
-    // --- Cheat Sheet Toggle JavaScript ---
-    const toggleButton = document.getElementById("toggleCheatSheet");
-    toggleButton.addEventListener("click", function() {
-      const cheatSheetDiv = document.getElementById("formulas");
-      if (cheatSheetDiv.style.display === "none" || cheatSheetDiv.style.display === "") {
-        cheatSheetDiv.style.display = "block";
-        this.textContent = "Hide Cheat Sheet";
-      } else {
-        cheatSheetDiv.style.display = "none";
-        this.textContent = "Show Cheat Sheet";
-      }
-    });
-  </script>
+  <!-- Link to external JavaScript file -->
+  <script type="module" src="js/app.js" defer></script>
 </body>
 </html>

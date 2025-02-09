@@ -1,0 +1,214 @@
+/* Import a friendly font from Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+/* Global Styles */
+body {
+  font-family: 'Poppins', sans-serif;
+  background: #f8f9fc; /* Soft off-white with a slight blue tint */
+  margin: 0;
+  padding: 20px;
+  color: #2d2d2d;
+  text-align: center;
+}
+
+/* Navigation Bar */
+nav {
+  background: #333;
+  color: #fff;
+  padding: 10px 0;
+  margin-bottom: 20px;
+}
+nav a {
+  color: #fff;
+  margin: 0 15px;
+  text-decoration: none;
+  font-weight: 500;
+}
+nav a:hover {
+  text-decoration: underline;
+}
+
+/* Cute Icon for Header */
+h1::before {
+  content: "🌈 ";
+}
+h1 {
+  color: #344e34;
+  font-weight: 600;
+  font-size: 26px;
+}
+
+/* Main Container (for Practice App and Cheat Sheet) */
+.container {
+  max-width: 600px;
+  margin: 40px auto;
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: 0 6px 20px rgba(128, 128, 255, 0.15); /* Soft purple-blue shadow */
+  transition: transform 0.3s ease;
+  text-align: left;
+}
+.container:hover {
+  transform: scale(1.00);
+}
+
+/* Styles for the Math Practice App elements */
+label {
+  font-weight: 500;
+  color: #555;
+  display: block;
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+select {
+  width: 100%;
+  padding: 10px;
+  border: 2px solid #7fa8f8; /* Blue accent */
+  border-radius: 8px;
+  background-color: #ffffff;
+  font-size: 16px;
+  outline: none;
+  cursor: pointer;
+  transition: 0.3s;
+}
+select:hover {
+  background: #eef5ff;
+}
+.problem-container {
+  background-color: #ffffff;
+  border: 2px solid #7cc383; /* Green accent */
+  border-radius: 12px;
+  padding: 20px;
+  margin: 20px 0;
+  box-shadow: 0px 4px 10px rgba(255, 165, 0, 0.1); /* Warm orange highlight */
+}
+.problem-container::before {
+  content: "📚";
+  font-size: 18px;
+  display: block;
+  margin-bottom: 10px;
+  color: #ffb84d;
+}
+#problemText {
+  font-size: 18px;
+  font-weight: 500;
+  color: #2d5a2d;
+  margin-bottom: 15px;
+}
+input[type="text"] {
+  width: calc(100% - 20px);
+  padding: 12px;
+  font-size: 16px;
+  border: 2px solid #7cc383;
+  border-radius: 8px;
+  outline: none;
+  transition: 0.3s;
+}
+input[type="text"]:focus {
+  border-color: #ffab40; /* Warm orange focus */
+  background: #fffaf0; /* Soft warm tone */
+}
+button {
+  padding: 12px 18px;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  font-weight: 500;
+  margin: 5px;
+}
+#submitAnswer {
+  background: #4d88ff; /* Blue primary */
+  color: #ffffff;
+}
+#submitAnswer:hover {
+  background: #3a6ee8;
+}
+#nextProblem {
+  background: #f28544; /* Warm orange */
+  color: #ffffff;
+}
+#nextProblem:hover {
+  background: #d9733b;
+}
+.feedback {
+  font-size: 16px;
+  margin-top: 12px;
+  font-weight: bold;
+}
+.feedback.correct {
+  color: #1c7d1c;
+}
+.feedback.incorrect {
+  color: #b22222;
+}
+.score {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 16px;
+  font-weight: 500;
+  color: #2d6a2d;
+}
+
+/* Cheat Sheet Specific Styles */
+#formulas {
+  display: none;
+}
+#formulas h2 {
+  text-align: center;
+  margin-top: 0;
+}
+#formulas section {
+  margin-bottom: 30px;
+}
+#formulas section h3 {
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 5px;
+  margin-bottom: 10px;
+}
+#formulas section article h4 {
+  margin-bottom: 5px;
+}
+#formulas ul {
+  list-style: none;
+  padding-left: 0;
+}
+#formulas ul li {
+  background: #f4f4f4;
+  padding: 8px;
+  margin: 5px 0;
+  border-radius: 4px;
+}
+
+/* Toggle Button Container */
+.toggle-container {
+  text-align: center;
+  margin: 20px 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  nav {
+    font-size: 14px;
+  }
+  .container {
+    margin: 20px;
+    padding: 20px;
+  }
+}
+
+/* Cute floating stars animation (for practice app feedback) */
+@keyframes floatingStars {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+.star {
+  display: inline-block;
+  font-size: 20px;
+  animation: floatingStars 3s infinite ease-in-out;
+  margin-left: 5px;
+  color: #ffcc00; /* Gold stars */
+}
