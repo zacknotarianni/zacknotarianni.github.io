@@ -46,6 +46,8 @@ export function generateFractionsOperations() {
     const numerator = (A - B) * D - C;
     const denominator = D;
     const decimalAnswer = parseFloat((numerator / denominator).toFixed(2));
+    
+    // Compute a mixed fraction answer:
     const wholePart = Math.floor(numerator / denominator);
     const remainder = numerator % denominator;
     let mixedFractionAnswer;
@@ -54,9 +56,13 @@ export function generateFractionsOperations() {
     } else {
       mixedFractionAnswer = `${wholePart} ${remainder}/${denominator}`;
     }
-    const answer = `${decimalAnswer} (or ${mixedFractionAnswer})`;
+    
+    // Both answers are acceptable.
+    const acceptedAnswers = [`${decimalAnswer}`, `${mixedFractionAnswer}`];
+    
     const explanation = `First, convert ${B} ${C}/${D} to an improper fraction: (${B * D + C})/${D}. Then, subtract: ${A} - (${B * D + C})/${D} = ((${A} - ${B})×${D} - ${C})/${D} = ${numerator}/${denominator} = ${decimalAnswer} (or ${mixedFractionAnswer}).`;
-    return { problemText, answer, explanation };
+    
+    return { problemText, answer: acceptedAnswers, explanation };
     
   } else if (type === 1) {
     // DIVISION (Fraction Division)
@@ -68,9 +74,14 @@ export function generateFractionsOperations() {
     const numerator = a * d;
     const denominator = b * c;
     const decimalAnswer = parseFloat((numerator / denominator).toFixed(2));
-    const answer = `${decimalAnswer} (or ${numerator}/${denominator})`;
-    const explanation = `Flip the second fraction and multiply: (${a}/${b}) ÷ (${c}/${d}) = (${a}/${b}) × (${d}/${c}) = (${a * d})/(${b * c}) = ${decimalAnswer} (or ${numerator}/${denominator}).`;
-    return { problemText, answer, explanation };
+    const fractionAnswer = `${numerator}/${denominator}`;
+    
+    // Both answers are acceptable.
+    const acceptedAnswers = [`${decimalAnswer}`, fractionAnswer];
+    
+    const explanation = `Flip the second fraction and multiply: (${a}/${b}) ÷ (${c}/${d}) = (${a}/${b}) × (${d}/${c}) = (${a * d})/(${b * c}) = ${decimalAnswer} (or ${fractionAnswer}).`;
+    
+    return { problemText, answer: acceptedAnswers, explanation };
     
   } else if (type === 2) {
     // ADDITION (Fraction Addition)
@@ -83,9 +94,14 @@ export function generateFractionsOperations() {
     const numerator = a * d + c * b;
     const denominator = b * d;
     const decimalAnswer = parseFloat((numerator / denominator).toFixed(2));
-    const answer = `${decimalAnswer} (or ${numerator}/${denominator})`;
+    const fractionAnswer = `${numerator}/${denominator}`;
+    
+    // Both answers are acceptable.
+    const acceptedAnswers = [`${decimalAnswer}`, fractionAnswer];
+    
     const explanation = `Find a common denominator: (${a}/${b}) + (${c}/${d}) = (${a}×${d} + ${c}×${b})/(${b}×${d}) = (${a * d} + ${c * b})/(${b * d}) = ${numerator}/${denominator}, which is approximately ${decimalAnswer}.`;
-    return { problemText, answer, explanation };
+    
+    return { problemText, answer: acceptedAnswers, explanation };
     
   } else {
     // MULTIPLICATION (Fraction Multiplication)
@@ -98,8 +114,13 @@ export function generateFractionsOperations() {
     const numerator = a * c;
     const denominator = b * d;
     const decimalAnswer = parseFloat((numerator / denominator).toFixed(2));
-    const answer = `${decimalAnswer} (or ${numerator}/${denominator})`;
+    const fractionAnswer = `${numerator}/${denominator}`;
+    
+    // Both answers are acceptable.
+    const acceptedAnswers = [`${decimalAnswer}`, fractionAnswer];
+    
     const explanation = `Multiply the numerators and the denominators: (${a}/${b}) × (${c}/${d}) = (${a}×${c})/(${b}×${d}) = ${numerator}/${denominator}, which equals approximately ${decimalAnswer}.`;
-    return { problemText, answer, explanation };
+    
+    return { problemText, answer: acceptedAnswers, explanation };
   }
 }
