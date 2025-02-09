@@ -66,11 +66,11 @@ export function generateSolvingForX() {
 
 export function generateSolvingForXQuadratic() {
   const a = randomInt(1, 10);        // coefficient for x²
-  const r = randomInt(1, 15);        // the absolute value of the solution (nonzero)
+  const r = randomInt(1, 15);        // the absolute value of the solution
   const c = randomInt(-50, 50);      // a random constant
-  const d = c + a * r * r;           // ensure the equation becomes: a x² = a*r²
+  const d = c + a * r * r;           // ensure the equation becomes: a x² + c = d
 
-  // Format the middle term properly
+  // Format the constant term for display.
   let cText = "";
   if (c > 0) {
     cText = " + " + c;
@@ -78,9 +78,14 @@ export function generateSolvingForXQuadratic() {
     cText = " - " + Math.abs(c);
   }
   
-  const problemText = `Solve for x: ${a}x²${cText} = ${d}.`;
-  const answer = `±${r}`;
-  const explanation = `Subtract ${c} from both sides to get ${a}x² = ${d - c}. Then divide by ${a} to find x² = ${(d - c) / a}. Since ${(d - c) / a} = ${r}², the solutions are x = ±${r}.`;
+  // In the problem text we instruct the user to enter only the number,
+  // because the answer is understood as "±" that number.
+  const problemText = `Solve for x: ${a}x²${cText} = ${d}. (Enter only the absolute value; the full answer is ± that number)`;
+  
+  // Instead of returning "±r", we return the number r.
+  const answer = r;
+  
+  const explanation = `Subtract ${c} from both sides to get ${a}x² = ${d - c}. Then divide by ${a} to find x² = ${(d - c) / a}. Since ${(d - c) / a} = ${r}², the solutions are x = ±${r}. Enter ${r} as your answer.`;
   
   return { problemText, answer, explanation };
 }
