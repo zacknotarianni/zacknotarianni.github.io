@@ -6,21 +6,58 @@ import * as conversions from './conversions.js';
 import * as wordProblems from './wordProblems.js';
 import * as algebra from './algebra.js';
 
+console.log("app.js loaded");
+
+
+// Global score and problem variables
 let correctCount = 0;
 let attemptedCount = 0;
 let currentAnswer = null;
 let currentProblem = {};
 
-// Update score display
+/**
+ * parseFraction uses regular expressions to convert a string representing
+ * a decimal, a fraction (e.g., "5/7"), or a mixed fraction (e.g., "2 1/3")
+ * into a numeric value. If parsing fails, it returns NaN.
+ */
+function parseFraction(str) {
+  str = str.trim();
+  
+  // Check for mixed fraction: one or more digits, whitespace, then fraction
+  let mixedMatch = str.match(/^(\d+)\s+(\d+)\/(\d+)$/);
+  if (mixedMatch) {
+    const whole = parseFloat(mixedMatch[1]);
+    const num = parseFloat(mixedMatch[2]);
+    const den = parseFloat(mixedMatch[3]);
+    if (!isNaN(whole) && !isNaN(num) && !isNaN(den) && den !== 0) {
+      return whole + num / den;
+    }
+  }
+  
+  // Check for simple fraction: e.g. "5/7"
+  let fracMatch = str.match(/^(\d+)\/(\d+)$/);
+  if (fracMatch) {
+    const num = parseFloat(fracMatch[1]);
+    const den = parseFloat(fracMatch[2]);
+    if (!isNaN(num) && !isNaN(den) && den !== 0) {
+      return num / den;
+    }
+  }
+  
+  // Otherwise, try to parse as a normal number (e.g., "0.67")
+  let num = parseFloat(str);
+  return isNaN(num) ? NaN : num;
+}
+
+// Update score display in the DOM
 function updateScore() {
   document.getElementById('scoreDisplay').textContent =
     `Score: ${correctCount} correct out of ${attemptedCount} attempted.`;
 }
 
-// Category mapping: each broad dropdown value returns a random problem from its module(s)
+// Category mapping: each dropdown category returns a random problem from its module(s)
 const categoryMap = {
   arithmeticAlgebra: () => {
-    // Choose from basic arithmetic, order of operations, or algebra problems.
     const funcs = [
       arithmetic.generateBasicArithmetic,
       arithmetic.generateOrderOfOperations,
@@ -31,7 +68,6 @@ const categoryMap = {
     return funcs[randomInt(0, funcs.length - 1)]();
   },
   fractionsDecimals: () => {
-    // Choose from fraction conversion or fraction operations problems.
     const funcs = [
       fractions.generateFractionsDecimals,
       fractions.generateFractionsOperations
@@ -39,7 +75,6 @@ const categoryMap = {
     return funcs[randomInt(0, funcs.length - 1)]();
   },
   unitConversions: () => {
-    // Choose from volume, weight, or length conversions.
     const funcs = [
       conversions.generateUnitConversions,
       conversions.generateUnitConversionsWeight,
@@ -48,7 +83,6 @@ const categoryMap = {
     return funcs[randomInt(0, funcs.length - 1)]();
   },
   wordProblems: () => {
-    // Choose from time & money, rate & proportion, subtraction, or division word problems.
     const funcs = [
       wordProblems.generateTimeMoneyWord,
       wordProblems.generateRateCarTravel,
@@ -59,13 +93,13 @@ const categoryMap = {
   }
 };
 
-// Main problem generator function
+// Main problem generator function.
 function generateProblem() {
   const category = document.getElementById("problemType").value;
-  // Use the categoryMap to select a problem
   const problemObj = categoryMap[category]();
   currentProblem = problemObj;
-  currentAnswer = problemObj.answer;
+  currentAnswer = problemObj.answer; // Expecting an array even for single-answer problems
+
   document.getElementById("problemText").textContent = problemObj.problemText;
   document.getElementById("feedback").textContent = "";
   document.getElementById("hint").textContent = "";
@@ -77,19 +111,71 @@ function checkAnswer() {
   const userAnswerRaw = document.getElementById("answerInput").value.trim();
   const feedbackElem = document.getElementById("feedback");
   let isCorrect = false;
-  if (typeof currentAnswer === "number") {
-    const userAnswer = parseFloat(userAnswerRaw);
-    if (!isNaN(userAnswer) && Math.abs(userAnswer - currentAnswer) < 0.01) {
+  const tolerance = 0.01;
+
+  // --- Debug Logging Start ---
+  console.log("User Answer:", userAnswerRaw);
+  console.log("Accepted Answers:", currentAnswer);
+  // --- Debug Logging End ---
+
+  if (Array.isArray(currentAnswer)) {
+    for (let accepted of currentAnswer) {
+      const acceptedStr = accepted.toString();
+
+      // If the accepted answer contains a comma or a percent sign,
+      // skip numeric conversion and do only normalized string comparison.
+      if (acceptedStr.includes(",") || acceptedStr.includes("%")) {
+        const normalizedUserAnswer = userAnswerRaw.replace(/\s+/g, '').toLowerCase();
+        const normalizedAccepted = acceptedStr.replace(/\s+/g, '').toLowerCase();
+        console.log(`Comparing strings: "${normalizedUserAnswer}" vs "${normalizedAccepted}"`);
+        if (normalizedUserAnswer === normalizedAccepted) {
+          isCorrect = true;
+          console.log("String match found (special case).");
+          break;
+        }
+        // Otherwise, continue to next accepted answer.
+        continue;
+      }
+      
+      // Otherwise, try numeric conversion using parseFraction.
+      const userNum = parseFraction(userAnswerRaw);
+      const acceptedNum = parseFraction(acceptedStr);
+      console.log(`Comparing numbers: User: ${userNum}, Accepted: ${acceptedNum}`);
+      if (!isNaN(userNum) && !isNaN(acceptedNum)) {
+        if (Math.abs(userNum - acceptedNum) < tolerance) {
+          isCorrect = true;
+          console.log("Numeric match found.");
+          break;
+        }
+      }
+      
+      // Fallback: normalized string comparison.
+      const normalizedUserAnswer = userAnswerRaw.replace(/\s+/g, '').toLowerCase();
+      const normalizedAccepted = acceptedStr.replace(/\s+/g, '').toLowerCase();
+      console.log(`Fallback string compare: "${normalizedUserAnswer}" vs "${normalizedAccepted}"`);
+      if (normalizedUserAnswer === normalizedAccepted) {
+        isCorrect = true;
+        console.log("Fallback string match found.");
+        break;
+      }
+    }
+  }
+  // (Optional) If currentAnswer is a standalone number:
+  else if (typeof currentAnswer === "number") {
+    const userNum = parseFraction(userAnswerRaw);
+    if (!isNaN(userNum) && Math.abs(userNum - currentAnswer) < tolerance) {
       isCorrect = true;
     }
-  } else {
+  }
+  // For non-array answers (typically strings)
+  else {
     const normalizedUserAnswer = userAnswerRaw.replace(/\s+/g, '').toLowerCase();
     const normalizedCorrectAnswer = currentAnswer.toString().replace(/\s+/g, '').toLowerCase();
     if (normalizedUserAnswer === normalizedCorrectAnswer) {
       isCorrect = true;
     }
   }
-  
+
   attemptedCount++;
   if (isCorrect) {
     correctCount++;
@@ -126,7 +212,7 @@ function checkAnswer() {
   updateScore();
 }
 
-// Event listeners
+// Event listeners for user interaction
 document.getElementById("submitAnswer").addEventListener("click", checkAnswer);
 document.getElementById("nextProblem").addEventListener("click", generateProblem);
 document.getElementById("problemType").addEventListener("change", generateProblem);

@@ -11,7 +11,7 @@ export function generateFractionsDecimals() {
     const problemText = `Express ${numerator}/${denominator} as a decimal and percent. (Format: decimal, percent)`;
     return {
       problemText,
-      answer: `${decimalVal}, ${percentVal}%`,
+      answer: [`${decimalVal}, ${percentVal}%`], // Answer wrapped in an array
       explanation: `${numerator}/${denominator} = ${decimalVal} and ${decimalVal} × 100 = ${percentVal}%.`
     };
   } else {
@@ -26,15 +26,16 @@ export function generateFractionsDecimals() {
     const problemText = `Convert ${decimalVal} to a fraction and percent. (Format: fraction, percent)`;
     return {
       problemText,
-      answer: `${numerator}/${denominator}, ${percentVal}%`,
+      answer: [`${numerator}/${denominator}, ${percentVal}%`], // Answer wrapped in an array
       explanation: `${decimalVal} = ${numerator}/${denominator} and ${decimalVal} × 100 = ${percentVal}%.`
     };
   }
 }
 
 export function generateFractionsOperations() {
-  const type = randomInt(0, 3); // 0: subtraction, 1: division, 2: addition, 3: multiplication.
-  
+  // Choose one of four operations: 0: subtraction, 1: division, 2: addition, 3: multiplication.
+  const type = randomInt(0, 3);
+
   if (type === 0) {
     // SUBTRACTION (Mixed Fraction Subtraction)
     const A = randomInt(10, 20);
@@ -71,6 +72,7 @@ export function generateFractionsOperations() {
     const c = randomInt(1, 10);
     const d = randomInt(2, 12);
     const problemText = `Solve: (${a}/${b}) ÷ (${c}/${d})`;
+    // Division: (a/b) ÷ (c/d) = (a/b) × (d/c)
     const numerator = a * d;
     const denominator = b * c;
     const decimalAnswer = parseFloat((numerator / denominator).toFixed(2));
@@ -110,7 +112,7 @@ export function generateFractionsOperations() {
     const c = randomInt(1, 10);
     const d = randomInt(2, 12);
     const problemText = `Solve: (${a}/${b}) × (${c}/${d})`;
-    // (a/b) * (c/d) = (a*c) / (b*d)
+    // Multiplication: (a/b) × (c/d) = (a*c) / (b*d)
     const numerator = a * c;
     const denominator = b * d;
     const decimalAnswer = parseFloat((numerator / denominator).toFixed(2));
@@ -119,7 +121,7 @@ export function generateFractionsOperations() {
     // Both answers are acceptable.
     const acceptedAnswers = [`${decimalAnswer}`, fractionAnswer];
     
-    const explanation = `Multiply the numerators and the denominators: (${a}/${b}) × (${c}/${d}) = (${a}×${c})/(${b}×${d}) = ${numerator}/${denominator}, which equals approximately ${decimalAnswer}.`;
+    const explanation = `Multiply the numerators and denominators: (${a}/${b}) × (${c}/${d}) = (${a}×${c})/(${b}×${d}) = ${numerator}/${denominator}, which equals approximately ${decimalAnswer}.`;
     
     return { problemText, answer: acceptedAnswers, explanation };
   }
